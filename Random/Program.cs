@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 
 namespace Random
 {
@@ -8,7 +9,7 @@ namespace Random
     {
         static void Main(string[] args)
         {
-            int n = 1000;
+            int n = 100;
             string numsX = "";
             string numsY = "";
             string numsZ = "";
@@ -17,15 +18,18 @@ namespace Random
             double sumZ = 0;
             for (int i = 0; i < n; i++)
             {
-                double x = GetNum();
+                int x = GetNum();
                 numsX += x + " ";
                 sumX += x;
-                double y = GetNum();
+                Thread.Sleep(x%3);
+                int y = GetNum();
                 numsY += y + " ";
                 sumY += y;
-                double z = GetNum();
+                Thread.Sleep(y%3);
+                int z = GetNum();
                 numsZ += z + " ";
                 sumZ += z;
+                Thread.Sleep(z%3);
             }
             string path = @"C:\Users\jagme\source\repos\Random\Random\nums.txt";
             using (StreamWriter sw = File.CreateText(path))
@@ -48,9 +52,9 @@ namespace Random
         {
             return Math.Sin((1 / (x / 100)) * (1 / (1 - x)));
         }
-        static double GetNum()
+        static int GetNum()
         {
-            return Chaos((ThreeLastDigits(DateTime.Now.Ticks) / 2500.0) - 0.2);
+            return ThreeLastDigits(DateTime.Now.Ticks);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Random
 {
@@ -6,7 +7,8 @@ namespace Random
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine(DateTime.Now.Ticks);
+            Console.WriteLine(Process.GetCurrentProcess().PrivateMemorySize64);
         }
     }
 }

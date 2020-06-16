@@ -8,15 +8,14 @@ namespace Random
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(ThreeLastDigits(DateTime.Now.Ticks));
             string numsX = "";
             string numsY = "";
             string numsZ = "";
             for (int i = 0; i < 10000; i++)
             {
-                numsX += ThreeLastDigits(DateTime.Now.Ticks) + " ";
-                numsY += ThreeLastDigits(DateTime.Now.Ticks) + " ";
-                numsZ += ThreeLastDigits(DateTime.Now.Ticks) + " ";
+                numsX += Chaos(ThreeLastDigits(DateTime.Now.Ticks) / 1000.0) + " ";
+                numsY += Chaos(ThreeLastDigits(DateTime.Now.Ticks) / 1000.0) + " ";
+                numsZ += Chaos(ThreeLastDigits(DateTime.Now.Ticks) / 1000.0) + " ";
             }
             string path = @"C:\Users\jagme\source\repos\Random\Random\nums.txt";
             using (StreamWriter sw = File.CreateText(path))
@@ -30,6 +29,11 @@ namespace Random
         static int ThreeLastDigits(long num)
         {
            return Convert.ToInt32(num % 1000);
+        }
+
+        static double Chaos(double x)
+        {
+            return Math.Sin((1 / (x / 100)) * (1 / (1 - x)));
         }
     }
 }

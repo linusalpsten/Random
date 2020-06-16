@@ -8,14 +8,24 @@ namespace Random
     {
         static void Main(string[] args)
         {
+            int n = 1000;
             string numsX = "";
             string numsY = "";
             string numsZ = "";
-            for (int i = 0; i < 10000; i++)
+            double sumX = 0;
+            double sumY = 0;
+            double sumZ = 0;
+            for (int i = 0; i < n; i++)
             {
-                numsX += Chaos(ThreeLastDigits(DateTime.Now.Ticks) / 1000.0) + " ";
-                numsY += Chaos(ThreeLastDigits(DateTime.Now.Ticks) / 1000.0) + " ";
-                numsZ += Chaos(ThreeLastDigits(DateTime.Now.Ticks) / 1000.0) + " ";
+                double x = GetNum();
+                numsX += x + " ";
+                sumX += x;
+                double y = GetNum();
+                numsY += y + " ";
+                sumY += y;
+                double z = GetNum();
+                numsZ += z + " ";
+                sumZ += z;
             }
             string path = @"C:\Users\jagme\source\repos\Random\Random\nums.txt";
             using (StreamWriter sw = File.CreateText(path))
@@ -24,6 +34,9 @@ namespace Random
                 sw.WriteLine(numsY);
                 sw.WriteLine(numsZ);
             }
+            Console.WriteLine(sumX/n);
+            Console.WriteLine(sumY/n);
+            Console.WriteLine(sumZ/n);
         }
 
         static int ThreeLastDigits(long num)
@@ -34,6 +47,10 @@ namespace Random
         static double Chaos(double x)
         {
             return Math.Sin((1 / (x / 100)) * (1 / (1 - x)));
+        }
+        static double GetNum()
+        {
+            return Chaos((ThreeLastDigits(DateTime.Now.Ticks) / 2500.0) - 0.2);
         }
     }
 }
